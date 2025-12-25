@@ -1,4 +1,4 @@
-package com.atzer.inviteSMP.repository;
+package com.atzer.inviteSMP.database;
 
 import com.atzer.inviteSMP.Config;
 import com.zaxxer.hikari.HikariConfig;
@@ -7,6 +7,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DatabaseManager {
 
@@ -50,8 +51,25 @@ public class DatabaseManager {
         }
     }
 
-    public void createTables(Connection connection) {
-        //TODO: logic to create tables.
+    public void createTables(Connection connection) throws SQLException {
+        Statement statement = connection.createStatement();
+
+        statement.executeUpdate("""
+            CREATE TABLE IF NOT EXISTS players (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                uuid TEXT NOT NULL UNIQUE,
+                name TEXT NOT NULL,
+                first_join TIMESTAMP NULL DEFAULT NULL,
+                last_join TIMESTAMP NULL DEFAULT NULL,
+                money DOUBLE NOT NULL DEFAULT 0,
+                helmet TEXT NOT NULL DEFAULT 0,
+                chestplate TEXT NOT NULL DEFAULT 0,
+                legging TEXT NOT NULL DEFAULT 0,
+                boots TEXT NOT NULL DEFAULT 0,
+                inventory TEXT NOT NULL DEFAULT 0,
+        """);
+
+        statement.close();
     }
 
 }
