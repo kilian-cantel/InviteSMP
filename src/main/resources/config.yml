@@ -6,3 +6,15 @@
 # |_____|_| |_|\_/ |_|\__\___|_____/|_|  |_|_|
 #
 # By Atzer.
+
+database:
+  host: localhost
+  port: 3306
+  name: "database_name"
+  user: "database_user"
+  password: "database_password"
+  pool:
+    max_pool_size: 10
+    minimum_idle: 2
+    max_lifetime: 1800000
+    connection_timeout: 5000
