@@ -1,0 +1,7 @@
+name: InviteSMP
+version: '1.0-SNAPSHOT'
+main: com.atzer.inviteSMP.InviteSMP
+api-version: '1.21'
+prefix: InviteSMP
+authors: [ atzer ]
+description: The main plugin for the InviteSMP server.
