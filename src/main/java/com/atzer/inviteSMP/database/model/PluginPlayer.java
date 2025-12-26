@@ -13,5 +13,5 @@ public record PluginPlayer (
         Instant firstJoin,
         Instant lastJoin,
         double money,
-        PlayerInventory playerInventory
+        String playerInventory
 ){}
