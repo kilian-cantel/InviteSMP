@@ -33,7 +33,11 @@ public final class InviteSMP extends JavaPlugin {
             return;
         }
 
-        this.pluginPlayerService = new PluginPlayerService(new PluginPlayerRepository(this.databaseManager.getDataSource()));
+        this.pluginPlayerService = new PluginPlayerService(
+                new PluginPlayerRepository(this.databaseManager.getDataSource()),
+                this.getLogger()
+        );
+
         this.getLogger().info("Database has been loaded!");
 
         this.getLogger().info("Plugin has been enabled!");
