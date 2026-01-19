@@ -52,7 +52,8 @@ public class PluginPlayerService {
         return this.load(player.getName(), player.getUniqueId());
     }
 
-    @Nullable PluginPlayer load(String name, UUID uuid) {
+    @Nullable
+    public PluginPlayer load(String name, UUID uuid) {
         try {
             return this.pluginPlayerRepository.findOrCreate(uuid, name);
         } catch (SQLException e) {

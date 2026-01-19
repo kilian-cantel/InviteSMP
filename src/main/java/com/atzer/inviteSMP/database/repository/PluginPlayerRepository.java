@@ -44,7 +44,8 @@ public class PluginPlayerRepository {
                     resultSet.getTimestamp("first_join").toInstant(),
                     resultSet.getTimestamp("last_join").toInstant(),
                     resultSet.getDouble("money"),
-                    resultSet.getString("player_inventory")
+                    resultSet.getString("player_inventory"),
+                    resultSet.getString("password")
             );
         }
 
@@ -55,20 +56,21 @@ public class PluginPlayerRepository {
 
     public void create(UUID uuid, String name) throws SQLException {
         PreparedStatement preparedStatement = this.dataSource.getConnection().prepareStatement("""
-                INSERT INTO players  (uuid, name, first_join, last_join, money, player_inventory) VALUES (?, ?, NOW(), NOW(), ?, ?)
+                INSERT INTO players  (uuid, name, first_join, last_join, money, player_inventory, password) VALUES (?, ?, NOW(), NOW(), ?, ?, ?)
         """);
 
         preparedStatement.setString(1, uuid.toString());
         preparedStatement.setString(2, name);
         preparedStatement.setDouble(3, 0);
         preparedStatement.setString(4, null);
+        preparedStatement.setString(5, null);
         preparedStatement.executeUpdate();
         preparedStatement.close();
     }
 
     public void create(PluginPlayer pluginPlayer) throws SQLException {
         PreparedStatement preparedStatement = this.dataSource.getConnection().prepareStatement("""
-                INSERT INTO players (uuid, name, first_join, last_join, money, player_inventory) VALUES (?, ?, ?, ?, ?, ?)
+                INSERT INTO players (uuid, name, first_join, last_join, money, player_inventory, password) VALUES (?, ?, ?, ?, ?, ?, )
         """);
 
         preparedStatement.setString(1, pluginPlayer.uuid().toString());
@@ -77,13 +79,14 @@ public class PluginPlayerRepository {
         preparedStatement.setTimestamp(4, Timestamp.from(pluginPlayer.lastJoin()));
         preparedStatement.setDouble(5, pluginPlayer.money());
         preparedStatement.setString(6, pluginPlayer.playerInventory());
+        preparedStatement.setString(7, pluginPlayer.password());
         preparedStatement.executeUpdate();
         preparedStatement.close();
     }
 
     public void deleteByUuid(UUID uuid) throws SQLException {
         PreparedStatement preparedStatement = this.dataSource.getConnection().prepareStatement("""
-                DELETE  FROM players WHERE uuid = ?; 
+                DELETE  FROM players WHERE uuid = ?;
         """);
 
         preparedStatement.setString(1, uuid.toString());
@@ -93,7 +96,7 @@ public class PluginPlayerRepository {
 
     public void update(PluginPlayer pluginPlayer) throws SQLException {
         PreparedStatement preparedStatement = this.dataSource.getConnection().prepareStatement("""
-                UPDATE players SET name = ?, last_join = ?, money = ?, player_inventory = ? WHERE uuid = ?; 
+                UPDATE players SET name = ?, last_join = ?, money = ?, player_inventory = ? WHERE uuid = ?;
         """);
 
         preparedStatement.setString(1, MiniMessage.miniMessage().serialize(pluginPlayer.name()));
@@ -107,7 +110,7 @@ public class PluginPlayerRepository {
 
     public void updateLastJoin(UUID uuid) throws SQLException {
         PreparedStatement preparedStatement = this.dataSource.getConnection().prepareStatement("""
-                UPDATE players SET last_join = NOW() WHERE uuid = ?; 
+                UPDATE players SET last_join = NOW() WHERE uuid = ?;
         """);
 
         preparedStatement.setString(1, uuid.toString());

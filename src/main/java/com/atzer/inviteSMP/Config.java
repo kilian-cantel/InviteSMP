@@ -17,8 +17,8 @@ public enum Config {
     DATABASE_POOL_MAX_LIFETIME("database.pool.max_lifetime", 1800000),
     DATABASE_POOL_CONNECTION_TIMEOUT("database.pool.connection_timeout", 5000);
 
-    private static FileConfiguration config = InviteSMP.getInstance().getConfig();
-    private static File file = new File(InviteSMP.getInstance().getDataFolder(), "config.yml");
+    private static final FileConfiguration config = InviteSMP.getInstance().getConfig();
+    private static final File file = new File(InviteSMP.getInstance().getDataFolder(), "config.yml");
 
     private final String path;
     private final Object defaultValue;

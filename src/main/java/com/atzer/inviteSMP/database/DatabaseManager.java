@@ -67,6 +67,7 @@ public class DatabaseManager {
                 legging TEXT NOT NULL DEFAULT 0,
                 boots TEXT NOT NULL DEFAULT 0,
                 inventory TEXT NOT NULL DEFAULT 0,
+                password TEXT NULL DEFAULT NULL
         """);
 
         statement.close();
