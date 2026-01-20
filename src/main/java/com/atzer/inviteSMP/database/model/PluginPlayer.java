@@ -7,6 +7,7 @@ import java.util.UUID;
 
 public record PluginPlayer (
         int id,
+        String identifier,
         UUID uuid,
         Component name,
         Instant firstJoin,

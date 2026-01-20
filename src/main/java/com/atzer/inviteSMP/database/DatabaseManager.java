@@ -57,6 +57,7 @@ public class DatabaseManager {
         statement.executeUpdate("""
             CREATE TABLE IF NOT EXISTS players (
                 id INT AUTO_INCREMENT PRIMARY KEY,
+                identifier TEXT NOT NULL UNIQUE,
                 uuid TEXT NOT NULL UNIQUE,
                 name TEXT NOT NULL,
                 first_join TIMESTAMP NULL DEFAULT NULL,
