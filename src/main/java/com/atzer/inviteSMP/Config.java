@@ -15,7 +15,9 @@ public enum Config {
     DATABASE_POOL_MAX_POOL_SIZE("database.pool.max_pool_size", 10),
     DATABASE_POOL_MINIMUM_IDLE("database.pool.minimum_idle", 2),
     DATABASE_POOL_MAX_LIFETIME("database.pool.max_lifetime", 1800000),
-    DATABASE_POOL_CONNECTION_TIMEOUT("database.pool.connection_timeout", 5000);
+    DATABASE_POOL_CONNECTION_TIMEOUT("database.pool.connection_timeout", 5000),
+    MESSAGE_FIRST_JOIN_WELCOME("message.first_join_welcome", "<green>Welcome to the server !<newline> <gray> do you have any accounts ? <newline> <green><click:run_command:/ac connect>[yes]</click><red><click:run_command:/ac register>[no]</click></red>"),
+    MESSAGE_JOIN_WELCOME("message.join_welcome", "<green>Welcome back !");
 
     private static final FileConfiguration config = InviteSMP.getInstance().getConfig();
     private static final File file = new File(InviteSMP.getInstance().getDataFolder(), "config.yml");

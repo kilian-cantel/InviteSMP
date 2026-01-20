@@ -4,6 +4,7 @@ import com.atzer.inviteSMP.database.model.PluginPlayer;
 import com.atzer.inviteSMP.database.repository.PluginPlayerRepository;
 import com.atzer.inviteSMP.utils.PasswordUtils;
 import net.kyori.adventure.text.Component;
+import org.bukkit.entity.Player;
 
 import javax.annotation.Nullable;
 import java.sql.SQLException;
