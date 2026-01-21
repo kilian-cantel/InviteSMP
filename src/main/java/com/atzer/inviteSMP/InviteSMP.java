@@ -5,7 +5,6 @@ import com.atzer.inviteSMP.database.repository.PluginPlayerRepository;
 import com.atzer.inviteSMP.listener.PlayerJoinListener;
 import com.atzer.inviteSMP.service.PluginPlayerService;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
@@ -14,7 +13,6 @@ import java.sql.SQLException;
 public final class InviteSMP extends JavaPlugin {
 
     private static InviteSMP instance;
-    private FileConfiguration baseConfig;
     private DatabaseManager databaseManager;
     private PluginPlayerService pluginPlayerService;
 
@@ -22,7 +20,6 @@ public final class InviteSMP extends JavaPlugin {
     public void onEnable() {
         instance = this;
         this.saveDefaultConfig();
-        this.baseConfig = this.getConfig();
 
         //Load database
         this.getLogger().info("Loading database...");
@@ -58,10 +55,6 @@ public final class InviteSMP extends JavaPlugin {
         return instance;
     }
 
-    public FileConfiguration getBaseConfig() {
-        return this.baseConfig;
-    }
-
     public DatabaseManager getDatabaseManager() {
         return this.databaseManager;
     }
@@ -72,6 +65,5 @@ public final class InviteSMP extends JavaPlugin {
 
     public void reload() {
         this.reloadConfig();
-        this.baseConfig = this.getConfig();
     }
 }

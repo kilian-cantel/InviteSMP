@@ -8,7 +8,7 @@ import javax.annotation.Nullable;
 import java.sql.*;
 import java.util.UUID;
 
-public class PluginPlayerRepository {
+public final class PluginPlayerRepository {
 
     private final HikariDataSource dataSource;
 
@@ -34,7 +34,9 @@ public class PluginPlayerRepository {
                     resultSet.getTimestamp("first_join").toInstant(),
                     resultSet.getTimestamp("last_join").toInstant(),
                     resultSet.getDouble("money"),
-                    resultSet.getString("player_inventory"),
+                    resultSet.getString("inventory"),
+                    resultSet.getString("armor_inventory"),
+                    resultSet.getString("extra_inventory"),
                     resultSet.getString("password")
             );
         }
@@ -46,7 +48,7 @@ public class PluginPlayerRepository {
 
     public void create(PluginPlayer pluginPlayer) throws SQLException {
         PreparedStatement preparedStatement = this.dataSource.getConnection().prepareStatement("""
-                INSERT INTO players (uuid, identifier, name, first_join, last_join, money, player_inventory, password) VALUES (?, ?, ?, ?, ?, ?, ?, )
+                INSERT INTO players (uuid, identifier, name, first_join, last_join, money, player_inventory, armor_inventory, extra_inventory, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, )
         """);
 
         preparedStatement.setString(1, pluginPlayer.uuid().toString());
@@ -56,7 +58,9 @@ public class PluginPlayerRepository {
         preparedStatement.setTimestamp(5, Timestamp.from(pluginPlayer.lastJoin()));
         preparedStatement.setDouble(6, pluginPlayer.money());
         preparedStatement.setString(7, pluginPlayer.playerInventory());
-        preparedStatement.setString(8, pluginPlayer.password());
+        preparedStatement.setString(8, pluginPlayer.armorInventory());
+        preparedStatement.setString(9, pluginPlayer.extraInventory());
+        preparedStatement.setString(10, pluginPlayer.password());
         preparedStatement.executeUpdate();
         preparedStatement.close();
     }
@@ -73,7 +77,7 @@ public class PluginPlayerRepository {
 
     public void update(String identifier, PluginPlayer pluginPlayer) throws SQLException {
         PreparedStatement preparedStatement = this.dataSource.getConnection().prepareStatement("""
-                UPDATE players SET uuid = ?, name = ?, last_join = ?, money = ?, player_inventory = ?, identifier = ? WHERE identifier = ?;
+                UPDATE players SET uuid = ?, name = ?, last_join = ?, money = ?, inventory = ?, armor_inventory, extra_inventory, identifier = ? WHERE identifier = ?;
         """);
 
         preparedStatement.setString(1, pluginPlayer.uuid().toString());
@@ -81,8 +85,10 @@ public class PluginPlayerRepository {
         preparedStatement.setTimestamp(3, Timestamp.from(pluginPlayer.lastJoin()));
         preparedStatement.setDouble(4, pluginPlayer.money());
         preparedStatement.setString(5, pluginPlayer.playerInventory());
-        preparedStatement.setString(6, pluginPlayer.identifier());
-        preparedStatement.setString(7, identifier);
+        preparedStatement.setString(6, pluginPlayer.armorInventory());
+        preparedStatement.setString(7, pluginPlayer.extraInventory());
+        preparedStatement.setString(8, pluginPlayer.identifier());
+        preparedStatement.setString(9, identifier);
         preparedStatement.executeUpdate();
         preparedStatement.close();
     }

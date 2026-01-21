@@ -9,7 +9,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DatabaseManager {
+public final class DatabaseManager {
 
     private HikariDataSource dataSource;
 
@@ -68,6 +68,8 @@ public class DatabaseManager {
                 legging TEXT NOT NULL DEFAULT 0,
                 boots TEXT NOT NULL DEFAULT 0,
                 inventory TEXT NOT NULL DEFAULT 0,
+                armor_inventory TEXT NOT NULL DEFAULT 0,
+                extra_inventory TEXT NOT NULL DEFAULT 0,
                 password TEXT NULL DEFAULT NULL
         """);
 

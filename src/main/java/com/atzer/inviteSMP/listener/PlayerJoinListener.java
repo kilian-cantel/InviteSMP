@@ -17,7 +17,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.io.IOException;
 
-public class PlayerJoinListener implements Listener {
+public final class PlayerJoinListener implements Listener {
 
     private static final InviteSMP plugin = InviteSMP.getInstance();
     private static final PluginPlayerService pluginPlayerService = plugin.getPlayerService();
@@ -25,12 +25,10 @@ public class PlayerJoinListener implements Listener {
     @EventHandler
     public void onPlayerJoinEvent(PlayerJoinEvent event) throws IOException {
         Player player = event.getPlayer();
+        pluginPlayerService.clearPlayer(player);
         player.getPersistentDataContainer().set(new NamespacedKey(plugin, "connected"), PersistentDataType.BOOLEAN, false);
 
-        WorldCreator wc = new WorldCreator("world_" + player.getUniqueId().toString());
-        wc.generator(new VoidGenerator());
-        wc.generateStructures(false);
-        World world = wc.createWorld();
+        World world = createWorld(player);
 
         if (world == null) {
             player.kick(MiniMessage.miniMessage().deserialize("<red>Sorry, an error occurred while creating the connection world. Please contact an administrator."));
@@ -48,6 +46,13 @@ public class PlayerJoinListener implements Listener {
         }
 
         player.sendMessage(MiniMessage.miniMessage().deserialize(Config.MESSAGE_JOIN_WELCOME.getString()));
+    }
+
+    public static World createWorld(Player player) {
+        WorldCreator wc = new WorldCreator("world_" + player.getUniqueId().toString());
+        wc.generator(new VoidGenerator());
+        wc.generateStructures(false);
+        return wc.createWorld();
     }
 
 }

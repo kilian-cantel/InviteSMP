@@ -21,5 +21,5 @@ database:
 
 
 message:
-  first_join_welcome: "<green>Welcome to the server !<newline> <gray> do you have any accounts ? <newline> <green><click:run_command:/ac connect>[yes]</click><red><click:run_command:/ac register>[no]</click></red>"
+  first_join_welcome: "<green>Welcome to the server !<newline> <gray> do you have any accounts ? <newline> <green><click:run_command:/connect>[yes]</click><red><click:run_command:/register>[no]</click></red>"
   join_welcome: "<green>Welcome back !"
