@@ -3,6 +3,7 @@ package com.atzer.inviteSMP;
 import com.atzer.inviteSMP.database.DatabaseManager;
 import com.atzer.inviteSMP.database.repository.PluginPlayerRepository;
 import com.atzer.inviteSMP.listener.PlayerJoinListener;
+import com.atzer.inviteSMP.listener.PlayerMoveListener;
 import com.atzer.inviteSMP.service.PluginPlayerService;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -39,7 +40,9 @@ public final class InviteSMP extends JavaPlugin {
 
         this.getLogger().info("Database has been loaded!");
 
+        //Events
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerMoveListener(), this);
 
         this.getLogger().info("Plugin has been enabled!");
     }
