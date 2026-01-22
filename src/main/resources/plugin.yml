@@ -5,3 +5,11 @@ api-version: '1.21'
 prefix: InviteSMP
 authors: [ atzer ]
 description: The main plugin for the InviteSMP server.
+
+commands:
+  connect:
+    description: Connect your account to the server.
+    aliases:
+      - c
+    permission: invitesmp.connect
+    permission-message: You do not have permission to use this command.
