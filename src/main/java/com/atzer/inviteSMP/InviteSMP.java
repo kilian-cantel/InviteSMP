@@ -3,6 +3,7 @@ package com.atzer.inviteSMP;
 import com.atzer.inviteSMP.command.ConnectCommand;
 import com.atzer.inviteSMP.database.DatabaseManager;
 import com.atzer.inviteSMP.database.repository.PluginPlayerRepository;
+import com.atzer.inviteSMP.listener.PlayerChatListener;
 import com.atzer.inviteSMP.listener.PlayerJoinListener;
 import com.atzer.inviteSMP.listener.PlayerMoveListener;
 import com.atzer.inviteSMP.service.PluginPlayerService;
@@ -44,6 +45,8 @@ public final class InviteSMP extends JavaPlugin {
         //Events
         this.getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
         this.getServer().getPluginManager().registerEvents(new PlayerMoveListener(), this);
+        this.getServer().getPluginManager().registerEvents(new PlayerChatListener(), this);
+        this.getLogger().info("Events have been registered!");
 
         //Commands
         PluginCommand connectCommand = this.getCommand("connect");
@@ -55,6 +58,7 @@ public final class InviteSMP extends JavaPlugin {
         }
 
         connectCommand.setExecutor(new ConnectCommand());
+        this.getLogger().info("Command connect has been registered!");
 
         this.getLogger().info("Plugin has been enabled!");
     }
