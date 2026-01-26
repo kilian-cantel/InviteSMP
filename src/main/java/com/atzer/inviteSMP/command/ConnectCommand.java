@@ -1,8 +1,8 @@
 package com.atzer.inviteSMP.command;
 
 import com.atzer.inviteSMP.InviteSMP;
+import com.atzer.inviteSMP.NamespacedKeys;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import org.bukkit.NamespacedKey;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
@@ -24,12 +24,12 @@ public class ConnectCommand implements TabExecutor {
             return false;
         }
 
-        if (Boolean.TRUE.equals(player.getPersistentDataContainer().get(new NamespacedKey(plugin, "connected"), PersistentDataType.BOOLEAN))) {
+            if (Boolean.TRUE.equals(player.getPersistentDataContainer().get(NamespacedKeys.CONNECTED.getNamespacedKey(), PersistentDataType.BOOLEAN))) {
             sender.sendMessage(MiniMessage.miniMessage().deserialize("<red>You are already connected!"));
             return false;
         }
 
-        player.getPersistentDataContainer().set(new NamespacedKey(plugin, "connecting"), PersistentDataType.BOOLEAN, true);
+        player.getPersistentDataContainer().set(NamespacedKeys.CONNECTING.getNamespacedKey(), PersistentDataType.BOOLEAN, true);
         return false;
     }
 

@@ -1,8 +1,8 @@
 package com.atzer.inviteSMP.listener;
 
 import com.atzer.inviteSMP.InviteSMP;
+import com.atzer.inviteSMP.NamespacedKeys;
 import io.papermc.paper.event.player.AsyncChatEvent;
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,7 +16,7 @@ public class PlayerChatListener implements Listener {
     public void onPlayerChatEvent(AsyncChatEvent event) {
         Player player = event.getPlayer();
 
-        if (Boolean.TRUE.equals(player.getPersistentDataContainer().get(new NamespacedKey(plugin, "connecting"), PersistentDataType.BOOLEAN))) {
+        if (Boolean.TRUE.equals(player.getPersistentDataContainer().get(NamespacedKeys.CONNECTING.getNamespacedKey(), PersistentDataType.BOOLEAN))) {
 
         }
     }

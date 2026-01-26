@@ -2,11 +2,11 @@ package com.atzer.inviteSMP.listener;
 
 import com.atzer.inviteSMP.Config;
 import com.atzer.inviteSMP.InviteSMP;
+import com.atzer.inviteSMP.NamespacedKeys;
 import com.atzer.inviteSMP.database.model.PluginPlayer;
 import com.atzer.inviteSMP.service.PluginPlayerService;
 import com.atzer.inviteSMP.utils.VoidGenerator;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import org.bukkit.NamespacedKey;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.entity.Player;
@@ -26,7 +26,7 @@ public final class PlayerJoinListener implements Listener {
     public void onPlayerJoinEvent(PlayerJoinEvent event) throws IOException {
         Player player = event.getPlayer();
         pluginPlayerService.clearPlayer(player);
-        player.getPersistentDataContainer().set(new NamespacedKey(plugin, "connected"), PersistentDataType.BOOLEAN, false);
+        player.getPersistentDataContainer().set(NamespacedKeys.CONNECTED.getNamespacedKey(), PersistentDataType.BOOLEAN, false);
 
         World world = createWorld(player);
 

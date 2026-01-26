@@ -1,7 +1,7 @@
 package com.atzer.inviteSMP.listener;
 
 import com.atzer.inviteSMP.InviteSMP;
-import org.bukkit.NamespacedKey;
+import com.atzer.inviteSMP.NamespacedKeys;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,7 +15,7 @@ public final class PlayerMoveListener  implements Listener {
     @EventHandler
     public void onPlayerMoveEvent(PlayerMoveEvent event) {
         Player player = event.getPlayer();
-        if (!player.getPersistentDataContainer().getOrDefault(new NamespacedKey(plugin, "connected"), PersistentDataType.BOOLEAN, false)) {
+        if (!player.getPersistentDataContainer().getOrDefault(NamespacedKeys.CONNECTED.getNamespacedKey(), PersistentDataType.BOOLEAN, false)) {
             event.setCancelled(true);
         }
     }
