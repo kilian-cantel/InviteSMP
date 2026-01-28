@@ -46,6 +46,32 @@ public final class PluginPlayerRepository {
         return null;
     }
 
+    @Nullable
+    public PluginPlayer findByIdentifier(String identifier) throws SQLException {
+        PreparedStatement preparedStatement = this.dataSource.getConnection().prepareStatement("""
+                SELECT * FROM players WHERE identifier = ?;
+        """);
+
+        preparedStatement.setString(1, identifier);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            return new PluginPlayer(
+                    resultSet.getInt("id"),
+                    identifier,
+                    UUID.fromString(resultSet.getString("uuid")),
+                    MiniMessage.miniMessage().deserialize(resultSet.getString("name")),
+                    resultSet.getTimestamp("first_join").toInstant(),
+                    resultSet.getTimestamp("last_join").toInstant(),
+                    resultSet.getDouble("money"),
+                    resultSet.getString("inventory"),
+                    resultSet.getString("armor_inventory"),
+                    resultSet.getString("extra_inventory"),
+                    resultSet.getString("password")
+            );
+        }
+        return null;
+    }
+
     public void create(PluginPlayer pluginPlayer) throws SQLException {
         PreparedStatement preparedStatement = this.dataSource.getConnection().prepareStatement("""
                 INSERT INTO players (uuid, identifier, name, first_join, last_join, money, player_inventory, armor_inventory, extra_inventory, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, )

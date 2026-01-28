@@ -36,6 +36,26 @@ public final class PluginPlayerService {
         return pluginPlayer;
     }
 
+    @Nullable
+    public PluginPlayer login(String identifier, String password) {
+        PluginPlayer pluginPlayer = null;
+        try {
+            pluginPlayer = this.pluginPlayerRepository.findByIdentifier(identifier);
+        } catch (SQLException e) {
+            this.logger.severe("A SQL error occurred while login the player with the identifier " + identifier + " !");
+        }
+
+        if (pluginPlayer == null) {
+            return null;
+        }
+
+        if (!PasswordUtils.checkPassword(password, pluginPlayer.password())) {
+            return null;
+        }
+
+        return pluginPlayer;
+    }
+
     public boolean register(Player player, String identifier, Instant lastJoin, double money, String password) {
         try {
             return save(

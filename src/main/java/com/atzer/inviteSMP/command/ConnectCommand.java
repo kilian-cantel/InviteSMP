@@ -24,7 +24,7 @@ public class ConnectCommand implements TabExecutor {
             return false;
         }
 
-            if (Boolean.TRUE.equals(player.getPersistentDataContainer().get(NamespacedKeys.CONNECTED.getNamespacedKey(), PersistentDataType.BOOLEAN))) {
+        if (Boolean.TRUE.equals(player.getPersistentDataContainer().get(NamespacedKeys.CONNECTED.getNamespacedKey(), PersistentDataType.BOOLEAN))) {
             sender.sendMessage(MiniMessage.miniMessage().deserialize("<red>You are already connected!"));
             return false;
         }
