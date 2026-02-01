@@ -45,7 +45,7 @@ public final class PlayerJoinListener implements Listener {
             return;
         }
 
-        player.sendMessage(MiniMessage.miniMessage().deserialize(Config.MESSAGE_JOIN_WELCOME.getString()));
+        player.sendMessage(MiniMessage.miniMessage().deserialize(Config.MESSAGE_JOIN_WELCOME.getString())); //TODO: rework this logic.
     }
 
     public static World createWorld(Player player) {
@@ -54,5 +54,4 @@ public final class PlayerJoinListener implements Listener {
         wc.generateStructures(false);
         return wc.createWorld();
     }
-
 }

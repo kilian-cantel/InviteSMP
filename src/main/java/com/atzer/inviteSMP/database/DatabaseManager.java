@@ -1,6 +1,7 @@
 package com.atzer.inviteSMP.database;
 
 import com.atzer.inviteSMP.Config;
+import com.atzer.inviteSMP.InviteSMP;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -12,6 +13,11 @@ import java.sql.Statement;
 public final class DatabaseManager {
 
     private HikariDataSource dataSource;
+    private final InviteSMP plugin;
+
+    public DatabaseManager(InviteSMP plugin) {
+        this.plugin = plugin;
+    }
 
     public void init() throws IOException, SQLException {
         if (this.dataSource != null) {
@@ -70,8 +76,14 @@ public final class DatabaseManager {
                 inventory TEXT NOT NULL DEFAULT 0,
                 armor_inventory TEXT NOT NULL DEFAULT 0,
                 extra_inventory TEXT NOT NULL DEFAULT 0,
-                password TEXT NULL DEFAULT NULL
-        """);
+                password TEXT NULL DEFAULT NULL,
+                x_position DOUBLE NOT NULL DEFAULT 0,
+                y_position DOUBLE NOT NULL DEFAULT 0,
+                z_position DOUBLE NOT NULL DEFAULT 0,
+                yaw_position FLOAT NOT NULL DEFAULT 0,
+                pitch_position FLOAT NOT NULL DEFAULT 0,
+                world_position TEXT NOT NULL DEFAULT {world},
+        """.replace("{world}", this.plugin.getServer().getWorlds().getFirst().getName()));
 
         statement.close();
     }

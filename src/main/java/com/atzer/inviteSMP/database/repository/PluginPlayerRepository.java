@@ -3,6 +3,8 @@ package com.atzer.inviteSMP.database.repository;
 import com.atzer.inviteSMP.database.model.PluginPlayer;
 import com.zaxxer.hikari.HikariDataSource;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 
 import javax.annotation.Nullable;
 import java.sql.*;
@@ -26,19 +28,7 @@ public final class PluginPlayerRepository {
         ResultSet resultSet = preparedStatement.executeQuery();
 
         if (resultSet.next()) {
-            return new PluginPlayer(
-                    resultSet.getInt("id"),
-                    resultSet.getString("identifier"),
-                    uuid,
-                    MiniMessage.miniMessage().deserialize(resultSet.getString("name")),
-                    resultSet.getTimestamp("first_join").toInstant(),
-                    resultSet.getTimestamp("last_join").toInstant(),
-                    resultSet.getDouble("money"),
-                    resultSet.getString("inventory"),
-                    resultSet.getString("armor_inventory"),
-                    resultSet.getString("extra_inventory"),
-                    resultSet.getString("password")
-            );
+            return resultSetToPluginPlayer(resultSet);
         }
 
         resultSet.close();
@@ -55,19 +45,7 @@ public final class PluginPlayerRepository {
         preparedStatement.setString(1, identifier);
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
-            return new PluginPlayer(
-                    resultSet.getInt("id"),
-                    identifier,
-                    UUID.fromString(resultSet.getString("uuid")),
-                    MiniMessage.miniMessage().deserialize(resultSet.getString("name")),
-                    resultSet.getTimestamp("first_join").toInstant(),
-                    resultSet.getTimestamp("last_join").toInstant(),
-                    resultSet.getDouble("money"),
-                    resultSet.getString("inventory"),
-                    resultSet.getString("armor_inventory"),
-                    resultSet.getString("extra_inventory"),
-                    resultSet.getString("password")
-            );
+            return resultSetToPluginPlayer(resultSet);
         }
         return null;
     }
@@ -117,5 +95,29 @@ public final class PluginPlayerRepository {
         preparedStatement.setString(9, identifier);
         preparedStatement.executeUpdate();
         preparedStatement.close();
+    }
+
+    private PluginPlayer resultSetToPluginPlayer(ResultSet resultSet) throws SQLException {
+        return new PluginPlayer(
+                resultSet.getInt("id"),
+                resultSet.getString("identifier"),
+                UUID.fromString(resultSet.getString("uuid")),
+                MiniMessage.miniMessage().deserialize(resultSet.getString("name")),
+                resultSet.getTimestamp("first_join").toInstant(),
+                resultSet.getTimestamp("last_join").toInstant(),
+                resultSet.getDouble("money"),
+                resultSet.getString("inventory"),
+                resultSet.getString("armor_inventory"),
+                resultSet.getString("extra_inventory"),
+                resultSet.getString("password"),
+                new Location(
+                        Bukkit.getWorld(resultSet.getString("world_location")),
+                        resultSet.getDouble("x_location"),
+                        resultSet.getDouble("y_location"),
+                        resultSet.getDouble("z_location"),
+                        resultSet.getFloat("yaw_location"),
+                        resultSet.getFloat("pitch_location")
+                )
+        );
     }
 }

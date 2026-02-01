@@ -26,7 +26,7 @@ public final class InviteSMP extends JavaPlugin {
 
         //Load database
         this.getLogger().info("Loading database...");
-        this.databaseManager = new DatabaseManager();
+        this.databaseManager = new DatabaseManager(this);
         try {
             this.databaseManager.init();
         } catch (IOException | SQLException e) {

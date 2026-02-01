@@ -1,6 +1,7 @@
 package com.atzer.inviteSMP.database.model;
 
 import net.kyori.adventure.text.Component;
+import org.bukkit.Location;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -16,5 +17,6 @@ public record PluginPlayer (
         String playerInventory,
         String armorInventory,
         String extraInventory,
-        String password
+        String password,
+        Location location
 ){}
